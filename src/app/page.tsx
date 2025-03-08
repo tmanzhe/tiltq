@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Footer from "./components/Footer";
 import About from "./components/About";
+import Image from 'next/image';
 
 export default function Home() {
   const [showScroll, setShowScroll] = useState(true);
@@ -62,8 +63,8 @@ export default function Home() {
               transition={{ duration: 1.2 }}
             >
               {/* Logo/Title */}
-              <motion.h1
-                className="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight font-sans"
+              <motion.div
+                className="flex justify-center items-center"
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
                 transition={{
@@ -73,8 +74,15 @@ export default function Home() {
                   delay: 0.4,
                 }}
               >
-                <span className="text-red-600">tilt</span>q
-              </motion.h1>
+                <Image 
+                  src="/tiltqimage.svg"
+                  alt="tiltq logo"
+                  width={200}
+                  height={80}
+                  priority
+                  className="h-auto w-auto"
+                />
+              </motion.div>
 
               {/* Description */}
               <motion.p
