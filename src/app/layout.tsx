@@ -14,7 +14,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "tiltq",
-  description: "Your ultimate League of Legends companion for those heated moments. We analyze player stats and match history to give you the perfect comeback.",
+  description: "Your ultimate League of Legends companion for those heated moments",
+  icons: {
+    icon: [
+      {
+        url: "/tiltqimage.svg",
+        type: "image/svg+xml",
+      }
+    ],
+  }
 };
 
 export default function RootLayout({
@@ -24,6 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/tiltqimage.svg" type="image/svg+xml" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

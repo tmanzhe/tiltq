@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, Copy, Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import Footer from "../components/Footer";
-import Image from 'next/image';
 
 function ResultsContent() {
   const searchParams = useSearchParams();
@@ -101,8 +100,8 @@ function ResultsContent() {
           transition={{ duration: 1.2 }}
         >
           {/* Logo/Title */}
-          <motion.div
-            className="flex justify-center items-center"
+          <motion.h1
+            className="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight font-sans"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{
@@ -112,15 +111,8 @@ function ResultsContent() {
               delay: 0.4,
             }}
           >
-            <Image 
-              src="/tiltqimage.svg"
-              alt="tiltq logo"
-              width={200}
-              height={80}
-              priority
-              className="h-auto w-auto"
-            />
-          </motion.div>
+            <span className="text-red-600">tilt</span>q
+          </motion.h1>
 
           {/* Description */}
           <motion.p
