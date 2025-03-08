@@ -13,7 +13,7 @@ export default function Footer() {
           >
             @tmanzhe
           </a>
-          {' '}© 2024
+          {' '}© 2025
         </p>
       </div>
     </footer>
