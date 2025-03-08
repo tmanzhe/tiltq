@@ -9,19 +9,19 @@ TiltQ is a funny web application designed to enhance your League of Legends expe
 
 ## 🚀 Features
 
-- **Smart Tilt Detection**: Advanced algorithms to detect and prevent tilt before it affects your gameplay
-- **Real-time Match Analysis**: Get instant insights during your matches
-- **Performance Tracking**: Track your progress and identify patterns in your gameplay
+- **Smart Tilt Detection**: "Advanced algorithms" to detect patterns to purposly generate a tilt response 
+- **Real-time Match Analysis**: Get instant insights of your prev matches
+- **Performance Tracking**: Calculates your progress and identify patterns in your gameplay
 - **Personalized Recommendations**: Receive tailored advice based on your playstyle and history
 - **Modern UI/UX**: Clean, responsive interface built with Next.js 14
 - **Cross-Platform**: Access your insights from any device
 
 ## 🎮 How It Works
 
-1. **Connect**: Link your League of Legends account
-2. **Play**: Queue up and play your games normally
-3. **Monitor**: TiltQ analyzes your performance in real-time
-4. **Improve**: Get actionable insights and recommendations
+1. **Prompt**: Prompts user to enter their RIOT ID
+2. **Start**: Instantly get a tailored response!
+3. **Copy**: Quick copy and paste feature! 
+4. **Paste**: Paste in game!
 
 ## 🛠️ Tech Stack
 
@@ -36,7 +36,7 @@ TiltQ is a funny web application designed to enhance your League of Legends expe
 
 ## 🧠 AI Integration
 
-TiltQ uses a sophisticated pipeline to generate personalized insights:
+TiltQ uses a "sophisticated" pipeline to generate personalized insights:
 
 1. **Data Collection**
    - Username to PUUID conversion via Riot API
@@ -63,37 +63,40 @@ TiltQ uses a sophisticated pipeline to generate personalized insights:
 
 ```
 tiltq/
+├── .next/                    # Next.js build output
+├── node_modules/            # Dependencies
+├── public/                  # Static assets
 ├── src/
-│   ├── app/
-│   │   ├── components/          # React components
-│   │   │   ├── match/          # Match-specific components
-│   │   │   ├── analysis/       # Analysis visualization
-│   │   │   └── insights/       # AI-generated insights
-│   │   ├── api/                # API routes
-│   │   │   ├── riot/          # Riot Games API integration
-│   │   │   └── gemini/        # Gemini API handlers
-│   │   ├── lib/
-│   │   │   ├── riot/          # Riot API utilities
-│   │   │   │   ├── auth.ts    # Authentication
-│   │   │   │   ├── match.ts   # Match data fetching
-│   │   │   │   └── player.ts  # Player data handling
-│   │   │   ├── gemini/        # Gemini integration
-│   │   │   │   ├── prompt.ts  # Prompt engineering
-│   │   │   │   └── train.ts   # Fine-tuning utilities
-│   │   │   └── utils/         # Helper functions
-│   │   ├── types/             # TypeScript definitions
-│   │   ├── layout.tsx         # App layout
-│   │   └── page.tsx           # Main page
-│   └── services/
-│       ├── matchAnalysis.ts   # Match analysis logic
-│       ├── tiltDetection.ts   # Tilt detection algorithms
-│       └── insightEngine.ts   # AI insight generation
-├── public/                    # Static assets
-├── scripts/
-│   ├── train-gemini.ts       # Gemini training script
-│   └── data-collection.ts    # Riot data collection
-├── tests/                    # Test suites
-└── package.json
+│   └── app/
+│       ├── api/
+│       │   ├── matches/     # Match history endpoints
+│       │   │   └── route.ts
+│       │   ├── matchId/     # Individual match data
+│       │   │   └── route.ts
+│       │   ├── player/      # Player info endpoints
+│       │   │   └── route.ts
+│       │   └── stats/       # Statistics endpoints
+│       │       └── route.ts
+│       ├── components/      # Shared components
+│       │   ├── About.tsx
+│       │   └── Footer.tsx
+│       ├── privacy/         # Privacy pages
+│       │   └── page.tsx
+│       ├── results/         # Match results pages
+│       │   └── page.tsx
+│       ├── favicon.ico
+│       ├── globals.css
+│       ├── layout.tsx
+│       └── page.tsx
+├── .env.local               # Environment variables
+├── .gitignore
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+└── tsconfig.json
 ```
 
 ## 🔄 Data Flow
@@ -107,7 +110,7 @@ graph TD
     E --> F[Data Processing]
     F --> G[Gemini 1.5 Model]
     G --> H[Generate Insights]
-    H --> I[User Interface]
+    H --> I[Results Page]
 ```
 
 ## 🤝 Contributing
@@ -118,9 +121,6 @@ We welcome contributions! If you have suggestions or find bugs, please open an i
 
 This project is licensed under the terms of the MIT license.
 
-## 👥 Team
-
-- Manzhe Tang - [@tmanzhe](https://github.com/tmanzhe)
 
 ## 🙏 Acknowledgments
 
