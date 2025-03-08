@@ -2,6 +2,8 @@
 
 Your ultimate League of Legends companion for those heated moments. TiltQ is designed to help players manage their gaming experience and maintain a positive mindset.
 
+![Screenshot 2025-03-08 at 6 39 17 PM](https://github.com/user-attachments/assets/ab30a06f-0ef1-4bc9-b513-dcc18bff9611)
+
 Try it now: https://tiltq.com
 
 ## Overview
@@ -18,9 +20,9 @@ TiltQ is a funny web application designed to enhance your League of Legends expe
 
 ## 🎮 How It Works
 
-1. **Prompt**: Prompts user to enter their RIOT ID
+1. **Prompt**: Prompts user to enter their RIOT ID!
 2. **Start**: Instantly get a tailored response!
-3. **Copy**: Quick copy and paste feature! 
+3. **Copy**: Quick copy feature!
 4. **Paste**: Paste in game!
 
 ## 🛠️ Tech Stack
@@ -50,7 +52,7 @@ TiltQ uses a "sophisticated" pipeline to generate personalized insights:
 
 3. **Gemini 1.5 Integration**
    - Fine-tuned on League of Legends terminology
-   - Trained on pro player behaviors
+   - "Trained" on pro player behaviors
    - Incorporates common League slang and memes
    - Contextual understanding of game states
 
