@@ -1,5 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
 
+interface Participant {
+    summonerName: string;
+    championName: string;
+    kills: number;
+    deaths: number;
+    assists: number;
+    totalDamageDealt: number;
+    goldEarned: number;
+    win: boolean;
+}
+
+interface MatchStatistics {
+    matchId: string;
+    gameMode: string;
+    duration: number;
+    participants: Participant[];
+}
+
+interface RiotParticipant {
+    summonerName: string;
+    championName: string;
+    kills: number;
+    deaths: number;
+    assists: number;
+    totalDamageDealtToChampions: number;
+    goldEarned: number;
+    win: boolean;
+}
+
+interface RiotMatchInfo {
+    gameMode: string;
+    gameDuration: number;
+    participants: RiotParticipant[];
+}
+
+interface RiotMatchData {
+    info: RiotMatchInfo;
+}
+
 export async function GET(request: NextRequest) {
     // Extract match IDs from the query parameters
     const searchParams = request.nextUrl.searchParams;
@@ -25,10 +64,10 @@ export async function GET(request: NextRequest) {
 
     try {
         // Initialize an empty array to store match data
-        let matchStatistics: any[] = [];
+        const matchStatistics: MatchStatistics[] = [];
 
         // Loop through each match ID to fetch match details
-        for (let matchId of matchIds) {
+        for (const matchId of matchIds) {
             console.log(`Fetching data for match ID: ${matchId}`); // Debug log
             
             // 🏆 Fetch match details using the match ID
@@ -44,9 +83,8 @@ export async function GET(request: NextRequest) {
                 throw new Error(`Riot API error for match ${matchId}: ${matchResponse.status}`);
             }
 
-            // Parse the match data
-            const matchData = await matchResponse.json();
-            console.log(`Received data for match ${matchId}:`, matchData.info ? 'Data OK' : 'No info object'); // Debug log
+            // Add type to matchData
+            const matchData: RiotMatchData = await matchResponse.json();
             
             if (!matchData.info) {
                 console.log(`No info object in match data for ${matchId}:`, matchData); // Debug log
@@ -54,11 +92,11 @@ export async function GET(request: NextRequest) {
             }
 
             // Extract relevant match statistics
-            const matchStats = {
+            const matchStats: MatchStatistics = {
                 matchId: matchId,
                 gameMode: matchData.info.gameMode,
                 duration: matchData.info.gameDuration,
-                participants: matchData.info.participants.map((p: any) => ({
+                participants: matchData.info.participants.map((p: RiotParticipant) => ({
                     summonerName: p.summonerName,
                     championName: p.championName,
                     kills: p.kills,
@@ -71,7 +109,7 @@ export async function GET(request: NextRequest) {
             };
 
             // Log the participants for this match
-            console.log(`Participants in match ${matchId}:`, matchStats.participants.map((p: any) => ({
+            console.log(`Participants in match ${matchId}:`, matchStats.participants.map((p: Participant) => ({
                 summonerName: p.summonerName,
                 championName: p.championName
             })));
