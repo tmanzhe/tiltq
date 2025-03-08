@@ -1,6 +1,7 @@
 # TiltQ
 
 Your ultimate League of Legends companion for those heated moments. TiltQ is designed to help players manage their gaming experience and maintain a positive mindset.
+Over 600+ people used tiltq within the first 24 hours of launch!
 
 ![Screenshot 2025-03-08 at 6 39 17 PM](https://github.com/user-attachments/assets/ab30a06f-0ef1-4bc9-b513-dcc18bff9611)
 
@@ -133,4 +134,4 @@ This project is licensed under the terms of the [MIT License](LICENSE).
 
 ---
 
-Made with ❤️ for league of legens 
+Made with ❤️ for league of legends 
