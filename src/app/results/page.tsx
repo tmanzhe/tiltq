@@ -11,13 +11,16 @@ function ResultsContent() {
   const fullRiotId = searchParams.get("fullRiotId") || "";
   const [message, setMessage] = useState<string>("Loading..."); // We'll update this later with actual message
   const [copied, setCopied] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Get PUUID from Riot ID
+        console.log('Fetching player data for:', fullRiotId);
         const response = await fetch(`/api/player?fullRiotId=${encodeURIComponent(fullRiotId)}`);
         const data = await response.json();
+        console.log('Player data received:', data);
 
         if (!data.puuid) {
           setMessage("No player data found.");
@@ -25,9 +28,11 @@ function ResultsContent() {
         }
 
         // Get match IDs using the PUUID
+        console.log('Fetching match IDs for PUUID:', data.puuid);
         const matchIdResponse = await fetch(`/api/matchId?puuid=${encodeURIComponent(data.puuid)}`);
         const matchIdData = await matchIdResponse.json();
         const matchIds = matchIdData.matchIds;
+        console.log('Match IDs received:', matchIds);
 
         if (!matchIds || matchIds.length === 0) {
           setMessage("No match history found.");
@@ -37,13 +42,23 @@ function ResultsContent() {
         // Get match statistics
         const matchParams = new URLSearchParams();
         matchIds.forEach((id: string) => matchParams.append('matchIds', id));
+        console.log('Fetching match details for IDs:', matchIds);
         const matchResponse = await fetch(`/api/matches?${matchParams}`);
         const matchData = await matchResponse.json();
+        console.log('Match data received:', JSON.stringify(matchData, null, 2));
         
         if (!matchData.matchStatistics || matchData.matchStatistics.length === 0) {
           setMessage("Failed to fetch match statistics.");
           return;
         }
+
+        const statsPayload = {
+          matchData: matchData.matchStatistics,
+          playerName: data.gameName,
+          puuid: data.puuid
+        };
+
+        console.log('Sending to stats endpoint:', JSON.stringify(statsPayload, null, 2));
 
         // Send to Gemini for analysis
         const geminiResponse = await fetch('/api/stats', {
@@ -51,22 +66,43 @@ function ResultsContent() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            matchData: matchData.matchStatistics,
-            playerName: data.gameName
-          })
+          body: JSON.stringify(statsPayload)
         });
         
+        console.log('Gemini response status:', geminiResponse.status);
+        const responseText = await geminiResponse.text();
+        console.log('Raw Gemini response:', responseText);
+        
         if (!geminiResponse.ok) {
-          throw new Error("Failed to get analysis");
+          let errorData;
+          try {
+            errorData = JSON.parse(responseText);
+          } catch (e) {
+            errorData = { error: responseText || "Unknown error" };
+          }
+          console.error('Gemini API error:', errorData);
+          throw new Error(errorData.error || "Failed to get analysis");
         }
         
-        const geminiData = await geminiResponse.json();
+        let geminiData;
+        try {
+          geminiData = JSON.parse(responseText);
+        } catch (e) {
+          console.error('Failed to parse Gemini response:', e);
+          throw new Error("Invalid response from analysis service");
+        }
+
+        if (geminiData.error) {
+          throw new Error(geminiData.error);
+        }
+        
         setMessage(geminiData.analysis || "Failed to generate analysis.");
 
       } catch (error) {
-        setMessage("An error occurred while processing the data.");
-        console.error(error);
+        const errorMessage = error instanceof Error ? error.message : "An error occurred while processing the data.";
+        setError(errorMessage);
+        setMessage(errorMessage);
+        console.error('Error in fetchData:', error);
       }
     };
 
@@ -143,6 +179,7 @@ function ResultsContent() {
               )}
             </button>
             <p className="text-xl text-gray-800 font-sans pr-12 leading-relaxed">{message}</p>
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           </motion.div>
 
           {/* Form - Now just for the button */}

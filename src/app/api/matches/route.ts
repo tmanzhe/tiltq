@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 interface Participant {
+    puuid: string;
     summonerName: string;
     championName: string;
     kills: number;
@@ -19,6 +20,7 @@ interface MatchStatistics {
 }
 
 interface RiotParticipant {
+    puuid: string;
     summonerName: string;
     championName: string;
     kills: number;
@@ -97,6 +99,7 @@ export async function GET(request: NextRequest) {
                 gameMode: matchData.info.gameMode,
                 duration: matchData.info.gameDuration,
                 participants: matchData.info.participants.map((p: RiotParticipant) => ({
+                    puuid: p.puuid,
                     summonerName: p.summonerName,
                     championName: p.championName,
                     kills: p.kills,
@@ -108,8 +111,9 @@ export async function GET(request: NextRequest) {
                 }))
             };
 
-            // Log the participants for this match
+            // Log the participants for this match with PUUIDs
             console.log(`Participants in match ${matchId}:`, matchStats.participants.map((p: Participant) => ({
+                puuid: p.puuid,
                 summonerName: p.summonerName,
                 championName: p.championName
             })));
