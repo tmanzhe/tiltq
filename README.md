@@ -4,6 +4,8 @@ Your ultimate League of Legends companion for those heated moments. TiltQ is des
 Over 1,332+ people used tiltq within the first 24 hours of launch with 2,660+ user engagement! 
 
 ![Screenshot 2025-03-08 at 6 39 17 PM](https://github.com/user-attachments/assets/ab30a06f-0ef1-4bc9-b513-dcc18bff9611)
+![{177144A7-7846-4189-B490-D44E5371F269}](https://github.com/user-attachments/assets/519f8931-2246-4851-adb5-587a487a8fba)
+
 
 Try it now: https://tiltq.com
 
