@@ -78,6 +78,7 @@ function ResultsContent() {
           try {
             errorData = JSON.parse(responseText);
           } catch (e) {
+            console.error("JSON parse error:", e); // Now ESLint won't complain
             errorData = { error: responseText || "Unknown error" };
           }
           console.error('Gemini API error:', errorData);
@@ -111,8 +112,7 @@ function ResultsContent() {
     }
   }, [fullRiotId]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     window.location.href = '/';
   };
 
